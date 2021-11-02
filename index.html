@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Vue</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<body>
+    <div id="app">
+
+        <!-- Disorot pake cursor jadi muncul judul -->
+        <span v-bind:title="pesan">
+            uhuyy
+        </span>
+
+
+        <!-- binding satu arah -->
+        <input type="text" v-bind:value="pesan">
+        <p>{{pesan}}</p>
+
+
+        <!-- binding dua arah -->
+        <input type="text" v-model:value="pesan">
+        <p>{{pesan}}</p>
+
+
+        <!-- jika terlihat maka akan ditampilkan -->
+        <span v-if="pesan">Ini</span>
+
+
+        <!-- perulangan for -->
+        <span v-for="todo in todos">
+            {{todo.text}}
+        </span>
+
+
+        <!-- balikan pesan -->
+        <p>{{pesan}}</p>
+        <button v-on:click="balikeun">Balikeun</button>
+
+
+        <!-- memanggil component buatan sendiri -->
+        <kumpulan-item v-for="item in todos" v-bind:todo="item" v-bind:key="item.id"></kumpulan-item>
+
+
+    </div>
+
+    <div id="upp">
+        <p>{{foo}}</p>
+        <button v-on:click="foo = 'baz'">Ubah ini</button>
+
+    </div>
+
+    <script>
+        //membuat component
+        Vue.component('kumpulan-item', {
+            props: ['todo'],
+            template: '<li>{{todo.text}}</li>'
+        })
+
+        var obj = {
+            foo: 'bar'
+        }
+        Object.freeze(obj)
+
+        new Vue({
+            el: '#upp',
+            data: obj
+        })
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                pesan: 'bahahaha',
+                todos: [{
+                        id: 0,
+                        text: 'belajar uhuy'
+                    },
+                    {
+                        id: 1,
+                        text: 'belajar apa aja'
+                    },
+                    {
+                        id: 2,
+                        text: 'Huhahh'
+                    }
+                ]
+            },
+            methods: {
+                balikeun: function () {
+                    this.pesan = this.pesan.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
